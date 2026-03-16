@@ -1,0 +1,553 @@
+/* =======================================================
+   CRT LAYOUT — Deep Purple Grid Background + Retro Glow
+   ======================================================= */
+
+.crt-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(
+      1000px 700px at 50% 45%,
+      #652287 0%,
+      #4f1a73 45%,
+      #3a135a 75%,
+      #230b3a 100%
+    );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.9);
+}
+
+/* Light electric-purple grid lines */
+.crt-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(228,129,227,0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(228,129,227,0.18) 1px, transparent 1px);
+  background-size: 34px 34px;
+  z-index: 1;
+}
+
+/* Scanlines overlay */
+.crt-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.14) 0px,
+    rgba(0, 0, 0, 0.25) 1px,
+    transparent 2px
+  );
+  opacity: 0.22;
+  animation: flicker 0.08s infinite;
+  z-index: 3;
+  pointer-events: none;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 0.18; }
+  20%, 24%, 55% { opacity: 0.26; }
+}
+
+/* CRT Content Area */
+.crt-content {
+  position: relative;
+  z-index: 4;
+  text-align: center;
+  letter-spacing: 0.08em;
+  font-family: "VT323", monospace;
+  color: #f8b319;
+}
+
+/* =======================================================
+   BOOT SCREEN
+   ======================================================= */
+
+.boot-title {
+  font-size: 2.6rem;
+  color: #f8b319;
+  text-shadow: 0 0 12px #f8b319, 0 0 24px rgba(248,179,25,0.8);
+}
+
+.boot-sub {
+  margin-top: 22px;
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+.boot-white {
+  color: #f3f3ff;
+  text-shadow: 0 0 10px rgba(230,230,255,0.6);
+}
+
+.boot-divider {
+  width: 440px;
+  height: 4px;
+  margin: 18px auto 12px;
+  background: #f8b319;
+  box-shadow:
+    0 0 10px rgba(248,179,25,0.9),
+    0 0 30px rgba(248,179,25,0.6);
+  border-radius: 2px;
+}
+
+/* SYSTEM ONLINE — highlight */
+.headline-online {
+  font-size: 3.4rem;
+  letter-spacing: 0.12em;
+  color: #76e4ff;
+  text-shadow:
+    0 0 14px #76e4ff,
+    0 0 32px rgba(118,228,255,0.85),
+    0 0 56px rgba(45,166,255,0.55);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.25); }
+}
+
+/* =======================================================
+   TRANSITIONS
+   ======================================================= */
+
+.fade-out {
+  animation: fadeOut 1.2s ease-in forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; filter: brightness(1); }
+  100% { opacity: 0; filter: brightness(0.4); }
+}
+
+.fade-in {
+  animation: fadeIn 1.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* =======================================================
+   STARFIELD
+   ======================================================= */
+
+.starfield,
+.stars,
+.stars2,
+.stars3 {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.starfield {
+  z-index: 2;
+}
+
+.stars {
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.9) 60%, transparent 61%),
+    radial-gradient(1.5px 1.5px at 70% 60%, rgba(255,255,255,0.8) 60%, transparent 61%),
+    radial-gradient(1.5px 1.5px at 40% 80%, rgba(255,255,255,0.85) 60%, transparent 61%),
+    radial-gradient(1.2px 1.2px at 85% 20%, rgba(255,255,255,0.8) 60%, transparent 61%),
+    radial-gradient(1.2px 1.2px at 10% 75%, rgba(255,255,255,0.8) 60%, transparent 61%);
+  background-repeat: no-repeat;
+  animation: drift1 40s linear infinite, twinkle 3.2s ease-in-out infinite;
+}
+
+.stars2 {
+  background-image:
+    radial-gradient(2.5px 2.5px at 30% 50%, rgba(255,255,255,0.9) 60%, transparent 61%),
+    radial-gradient(2px 2px at 60% 25%, rgba(255,255,255,0.85) 60%, transparent 61%),
+    radial-gradient(2px 2px at 85% 70%, rgba(255,255,255,0.9) 60%, transparent 61%),
+    radial-gradient(1.5px 1.5px at 15% 20%, rgba(255,255,255,0.8) 60%, transparent 61%);
+  background-repeat: no-repeat;
+  animation: drift2 60s linear infinite, twinkle 4.4s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+.stars3 {
+  background-image:
+    radial-gradient(3px 3px at 50% 15%, rgba(255,255,255,0.95) 60%, transparent 61%),
+    radial-gradient(2.5px 2.5px at 75% 40%, rgba(255,255,255,0.9) 60%, transparent 61%),
+    radial-gradient(2.5px 2.5px at 25% 65%, rgba(255,255,255,0.9) 60%, transparent 61%);
+  background-repeat: no-repeat;
+  animation: drift3 85s linear infinite, twinkle 5.8s ease-in-out infinite;
+  opacity: 0.75;
+}
+
+@keyframes drift1 {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-60px); }
+}
+
+@keyframes drift2 {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-90px); }
+}
+
+@keyframes drift3 {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-120px); }
+}
+
+@keyframes twinkle {
+  0%, 100% { filter: brightness(0.9); opacity: 0.9; }
+  50%      { filter: brightness(1.2); opacity: 1; }
+}
+
+/* =======================================================
+   MISSION CONTROL MENU — ORIGINAL THICK TEXT + NEW BAND
+   ======================================================= */
+
+.menu {
+  text-align: left;
+  min-width: 640px;
+  margin: 0 auto;
+}
+
+/* Title + subtitle */
+.menu-title {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #f8b319;
+  text-shadow: 0 0 10px #f8b319;
+  letter-spacing: 0.08em;
+}
+
+.menu-sub {
+  text-align: center;
+  margin-top: 6px;
+  margin-bottom: 18px;
+  font-size: 1.6rem;
+  color: #b9c9ff;
+  text-shadow: 0 0 6px #7aa8ff;
+}
+
+/* List container */
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 8px;
+}
+
+/* Each row */
+.menu-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.7rem;
+  padding: 8px 14px;
+  margin-bottom: 4px;
+  border-radius: 999px; /* pill highlight */
+  color: #e6e6f8;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+/* Arrow column */
+.menu-list li .arrow {
+  width: 1.8rem;
+  font-size: 1.8rem;
+  text-align: center;
+  opacity: 0.9;
+}
+
+/* Label text – THICKER like original */
+.menu-list li .label {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #e6e6f8;
+  text-shadow: 0 0 4px rgba(255,255,255,0.2);
+}
+
+/* ACTIVE ROW — amber band behind the text */
+.menu-list li.active {
+  background: rgba(248,179,25,0.16);
+  box-shadow:
+    0 0 10px rgba(248,179,25,0.35),
+    0 0 26px rgba(0,0,0,0.85);
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255,255,255,0.25);
+}
+
+/* Extra pop for active label */
+.menu-list li.active .label {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.35),
+    0 0 18px rgba(255,255,255,0.25);
+}
+
+/* Arrow on active row */
+.menu-list li.active .arrow {
+  opacity: 1;
+  color: #f8b319;
+}
+
+/* Help text */
+.menu-help {
+  margin-top: 16px;
+  font-size: 1rem;
+  color: #b8b8d6;
+  text-align: center;
+  opacity: 0.88;
+}
+
+/* Arrow blink (for selected item) */
+@keyframes arrowBlink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+
+.arrow.blink {
+  animation: arrowBlink 1s ease-in-out infinite;
+}
+
+/* =======================================================
+   EARTH CORE VIEW — FRAME
+   ======================================================= */
+
+.earth-view {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid rgba(248,179,25,0.35);
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* clean, predictable image rendering */
+.earth-img {
+  max-width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  flex: 1;
+}
+
+/* transparent console panels */
+.console-frame,
+.console-inner,
+.console-body,
+.frame-body,
+.panel {
+  background: transparent !important;
+}
+
+/* Loading text */
+.loading {
+  font-size: 1.5rem;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+/* Caption line at top-left */
+.feed-caption {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 3;
+  font-size: 0.85rem;
+  color: #cfd8ff;
+  opacity: 0.9;
+}
+
+/* HUD box */
+.hud {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 3;
+  display: grid;
+  gap: 4px;
+  color: #f8f8ff;
+  text-shadow: 0 0 6px rgba(122,168,255,0.7);
+  font-size: 1.05rem;
+  background: rgba(10, 10, 30, 0.45);
+  border: 1px solid rgba(122,168,255,0.35);
+  border-radius: 8px;
+  padding: 8px 10px;
+  backdrop-filter: blur(1.5px);
+}
+
+@media (max-width: 768px) {
+  .earth-view {
+    max-width: 100%;
+  }
+}
+
+/* =======================================================
+   GENERIC CRT BUTTON
+   ======================================================= */
+
+.crt-button {
+  font-family: "VT323", monospace;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  padding: 6px 18px;
+  border-radius: 6px;
+  border: 1px solid rgba(248,179,25,0.9);
+  background: rgba(10, 10, 30, 0.85);
+  color: #f8b319;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow:
+    0 0 8px rgba(248,179,25,0.5),
+    0 0 16px rgba(248,179,25,0.3);
+  transition: box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.crt-button:hover {
+  box-shadow:
+    0 0 12px rgba(248,179,25,0.9),
+    0 0 22px rgba(248,179,25,0.6);
+  transform: translateY(-1px);
+}
+
+.crt-button:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 0 6px rgba(248,179,25,0.7),
+    0 0 12px rgba(248,179,25,0.4);
+}
+
+/* =========================================
+   CINEMATIC SPACE FEED ANIMATIONS
+   ========================================= */
+
+/* Image: fade-in + slow Ken Burns drift */
+.space-feed-image {
+  animation:
+    spaceImageFade 1.2s ease-out forwards,
+    spaceImageDrift 24s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+@keyframes spaceImageFade {
+  0% {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spaceImageDrift {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.03) translate3d(0, -6px, 0);
+  }
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+/* Subtle glow / pulse for status + HUD */
+.space-feed-status {
+  color: #b9c9ff;
+  text-shadow: 0 0 8px rgba(122, 168, 255, 0.9);
+  letter-spacing: 0.06em;
+  animation: statusPulse 4s ease-in-out infinite;
+}
+
+.space-feed-source {
+  color: #f8b319;
+  text-shadow: 0 0 6px rgba(248, 179, 25, 0.7);
+}
+
+.space-feed-hud {
+  color: #f3f3ff;
+  text-shadow: 0 0 6px rgba(122, 168, 255, 0.9);
+  animation: hudPulse 6s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 0.9; }
+  50%      { opacity: 1; }
+}
+
+@keyframes hudPulse {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.12);
+  }
+}
+
+.earth-core-grid {
+  min-height: 60vh;
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+  justify-content: center;
+  padding-top: 8px;
+  flex-wrap: wrap;
+}
+
+.earth-main-panel {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.earth-side-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.space-feed-status {
+  font-size: 0.85rem;
+  max-width: 80vw;
+  text-align: center;
+}
+
+.space-feed-source {
+  font-size: 0.9rem;
+  max-width: 80vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.space-feed-hud {
+  margin-top: 8px;
+  font-size: 1rem;
+  line-height: 1.4;
+  text-align: center;
+}

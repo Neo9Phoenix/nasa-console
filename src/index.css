@@ -1,0 +1,67 @@
+/* === NASA Console Base Styles === */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: "VT323", monospace;
+  letter-spacing: 0.06em;
+  color-scheme: dark;
+  color: #e6e6e6;
+  background: radial-gradient(1200px 800px at 50% 45%, #211046 0%, #11072A 70%, #0A0520 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reset link and button appearance for CRT style */
+a {
+  color: #f8b319;
+  text-decoration: none;
+}
+a:hover {
+  text-shadow: 0 0 8px #f8b319;
+}
+
+button {
+  border-radius: 6px;
+  border: 1px solid #7A2BD7;
+  padding: 0.6em 1.2em;
+  font-size: 1.1em;
+  font-family: "VT323", monospace;
+  background-color: rgba(25,10,54,0.6);
+  color: #e6e6e6;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+button:hover {
+  border-color: #f8b319;
+  box-shadow: 0 0 8px #f8b319;
+}
+button:focus,
+button:focus-visible {
+  outline: 2px solid #f8b319;
+}
+
+h1 {
+  font-size: 3rem;
+  color: #f8b319;
+  text-shadow: 0 0 12px #f8b319;
+}
+
+/* Optional scanline overlay (will enhance CRT look later) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(rgba(0,0,0,0.25) 1px, transparent 1px);
+  background-size: 100% 2px;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
