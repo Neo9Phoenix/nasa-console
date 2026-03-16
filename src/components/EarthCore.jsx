@@ -16,16 +16,29 @@ const FALLBACK_IMAGE =
 
 export default function EarthCore({ onBack }) {
 
-  /* =========================================================
-     STATE
-     ========================================================= */
+/* =========================================================
+   STATE
+   ========================================================= */
 
-  const [apod, setApod] = useState(null);
-  const [epicUrls, setEpicUrls] = useState([]);
-  const [frameIndex, setFrameIndex] = useState(0);
-  const [useFallback, setUseFallback] = useState(false);
+const [apod, setApod] = useState(null);
+const [epicUrls, setEpicUrls] = useState([]);
+const [frameIndex, setFrameIndex] = useState(0);
+const [useFallback, setUseFallback] = useState(false);
 
-  const frameTimer = useRef(null);
+const frameTimer = useRef(null);
+
+
+/* =========================================================
+   KEEP BACKEND AWAKE (Render sleep fix)
+   ========================================================= */
+
+useEffect(() => {
+  const ping = setInterval(() => {
+    fetch(`${API_BASE}/health`).catch(() => {});
+  }, 240000); // every 4 minutes
+
+  return () => clearInterval(ping);
+}, []);
 
 
   /* =========================================================
