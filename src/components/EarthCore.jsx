@@ -23,7 +23,6 @@ export default function EarthCore({ onBack }) {
 const [apod, setApod] = useState(null);
 const [epicUrls, setEpicUrls] = useState([]);
 const [frameIndex, setFrameIndex] = useState(0);
-const [useFallback, setUseFallback] = useState(false);
 
 const frameTimer = useRef(null);
 
@@ -138,61 +137,58 @@ useEffect(() => {
 
 
   /* =========================================================
-     IMAGE SOURCE SELECTION
-     ========================================================= */
+   IMAGE SOURCE SELECTION (FIXED)
+   ========================================================= */
 
-  let mode;
+let mode = "fallback";
 
-  if (!useFallback && epicUrls.length > 0) {
-    mode = "epic";
-  }
-  else if (apod) {
-    mode = "apod";
-  }
-  else {
-    mode = "fallback";
-  }
+// Decide mode FIRST
+if (epicUrls && epicUrls.length > 0) {
+  mode = "epic";
+} 
+else if (apod) {
+  mode = "apod";
+}
 
-  let imageSrc;
-  let sourceLabel;
-  let sourceUrl;
+/* ✅ ADD safeIndex HERE */
+const safeIndex =
+  epicUrls && epicUrls.length > 0
+    ? frameIndex % epicUrls.length
+    : 0;
 
-  if (mode === "epic") {
+let imageSrc;
+let sourceLabel;
+let sourceUrl;
 
-    imageSrc = epicUrls[frameIndex];
-    sourceLabel = "EPIC PROXY (EARTH)";
-    sourceUrl = epicUrls[frameIndex];
+switch (mode) {
+  case "epic":
+    imageSrc = epicUrls[safeIndex];   // 👈 USE IT HERE
+    sourceLabel = "EPIC LIVE (NASA DSCOVR)";
+    sourceUrl = imageSrc;
+    break;
 
-  } else if (mode === "apod") {
-
+  case "apod":
     imageSrc = apod;
-    sourceLabel = "APOD (DEEP SPACE / SKY)";
+    sourceLabel = "APOD (NASA SKY)";
     sourceUrl = apod;
+    break;
 
-  } else {
-
+  default:
     imageSrc = FALLBACK_IMAGE;
     sourceLabel = "STATIC EARTH BACKDROP";
     sourceUrl = null;
+}
 
-  }
+/* =========================================================
+   STATUS MESSAGE (FIXED)
+   ========================================================= */
 
-
-  /* =========================================================
-     STATUS MESSAGE
-     ========================================================= */
-
-  const statusText =
-    mode === "epic"
-      ? "SPACE FEED: EPIC LIVE EARTH FRAMES (NASA DSCOVR)"
-      : mode === "apod"
-      ? "SPACE FEED: EPIC OFFLINE – DISPLAYING NASA APOD"
-      : "SPACE FEED: EPIC & APOD UNAVAILABLE – DISPLAYING EARTH FALLBACK";
-
-
-  /* =========================================================
-     RENDER
-     ========================================================= */
+const statusText =
+  mode === "epic"
+    ? "SPACE FEED: EPIC LIVE EARTH FRAMES (NASA DSCOVR)"
+    : mode === "apod"
+    ? "SPACE FEED: EPIC OFFLINE – DISPLAYING NASA APOD"
+    : "SPACE FEED: NASA DATA UNAVAILABLE – DISPLAYING EARTH FALLBACK";
 
   return (
     <ConsoleFrame
@@ -225,10 +221,10 @@ useEffect(() => {
               border: "2px solid rgba(248,179,25,0.6)",
               boxShadow: "0 0 25px rgba(0,0,0,0.75)",
             }}
-            onError={() => {
-              console.error("Image failed — switching to fallback");
-              setUseFallback(true);
-            }}
+            onError={(e) => {
+  console.error("Image failed, switching to fallback");
+  e.currentTarget.src = FALLBACK_IMAGE;
+}}
           />
 
         ) : (
